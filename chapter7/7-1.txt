@@ -1,0 +1,40 @@
+﻿Option Explicit
+#If Win64 Then
+  Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)                        '(3)
+#Else
+    Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)                               '(4)
+#End If
+
+
+Private objIE As InternetExplorer
+
+Sub main()
+    Set objIE = New InternetExplorer
+    Dim url
+    url = "https://www.amazon.co.jp/"
+    objIE.Visible = True
+    objIE.Navigate2 (url)
+
+   '等待讀取完成
+    While objIE.readyState <> READYSTATE_COMPLETE Or objIE.Busy = True
+        DoEvents
+        Sleep 100
+    Wend
+    Sleep 100
+
+    '取得檢索Box
+    Dim searchBox As IHTMLElement
+    Set searchBox = objIE.document.getElementById("twotabsearchtextbox")
+    '設定檢索Box
+
+    '設定關鍵字
+    Dim searchWord
+    searchWord = "Scraping"
+    searchBox.Value = searchWord
+
+    '按下搜尋按鈕
+    objIE.document.forms(0).submit
+
+    'objIE.Quit
+    'Set objIE = Nothing
+End Sub
