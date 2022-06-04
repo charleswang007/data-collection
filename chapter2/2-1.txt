@@ -9,7 +9,7 @@ Option Explicit
 Private objIE As InternetExplorer
 
 Sub main()
-    '«Ø¥ßIEª«¥ó
+    'å»ºç«‹IEç‰©ä»¶
     
     Set objIE = New InternetExplorer
     Dim url
@@ -20,7 +20,7 @@ Sub main()
     objIE.Navigate2 (url)
 
 
-'µ¥«İÅª¨ú§¹¦¨
+'ç­‰å¾…è®€å–å®Œæˆ
 
     While objIE.readyState <> READYSTATE_COMPLETE Or objIE.Busy = True
         DoEvents
@@ -32,10 +32,10 @@ Sub main()
     Set objDoc = objIE.document
     Dim element As IHTMLElement
  
-    Dim row '¼g¤JÀx¦s®æªº¦æ¼Æ
+    Dim row 'å¯«å…¥å„²å­˜æ ¼çš„è¡Œæ•¸
     row = 1
     For Each element In objDoc.getElementsByClassName("type02_bd-a")
-        '±N®Ñ¦W¼g¤JÀx¦s®æ
+        'å°‡æ›¸åå¯«å…¥å„²å­˜æ ¼
         
         Worksheets(1).Cells(row, 1) = row
         Worksheets(1).Cells(row, 2) = element.Children(0).Children(0).innerText
